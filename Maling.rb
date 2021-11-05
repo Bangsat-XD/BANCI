@@ -293,7 +293,7 @@ module Facebook
 end
 
 $logo = <<-INI_LOGO
-  Author  : ☆ Raka ☆ ™︻®╤───────═◍➤
+  Author  : ☆Raka☆™︻®╤───────═◍➤
   Github  : Bangsat-XD
   Version : 1.0
 INI_LOGO
