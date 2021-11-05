@@ -293,10 +293,9 @@ module Facebook
 end
 
 $logo = <<-INI_LOGO
-  ________  ___  _______ __
- / ___/ _ \\/ _ |/ ___/ //_/ Author  : ☆ Raka ☆ ™︻®╤───────═◍➤
-/ /__/ , _/ __ / /__/ ,<    Github  : Bangsat-XD
-\\___/_/|_/_/ |_\\___/_/|_|   Version : 1.0
+  Author  : ☆ Raka ☆ ™︻®╤───────═◍➤
+  Github  : Bangsat-XD
+  Version : 1.0
 INI_LOGO
 
 def tik(teks)
