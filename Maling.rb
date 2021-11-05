@@ -332,9 +332,9 @@ def main
           end
         end
         puts ("\n[!] Hasil Crack Tanpa Tanggal Lahir\n\n")
-        a.uniq.each {|i| puts ("\033[92m[OK] #{i}\033[0m")}
+        a.uniq.each {|i| puts ("\033[92m[BANCI_OK] #{i}\033[0m")}
         puts ("\n[!] Hasil Crack Dengan Tanggal Lahir\n\n")
-        b.uniq.each {|i| puts ("\033[92m[OK] #{i}\033[0m")}
+        b.uniq.each {|i| puts ("\033[92m[BANCI_OK] #{i}\033[0m")}
       elsif naon == 1 and ok.empty?
         puts ("\n[!] Anda Tidak Memiliki Hasil OK")
       elsif naon == 2 and !cp.empty?
@@ -349,9 +349,9 @@ def main
           end
         end
         puts ("\n[!] Hasil Crack Tanpa Tanggal Lahir\n\n")
-        a.uniq.each {|i| puts ("\033[93m[CP] #{i}\033[0m")}
+        a.uniq.each {|i| puts ("\033[93m[BANCI_CP] #{i}\033[0m")}
         puts ("\n[!] Hasil Crack Dengan Tanggal Lahir\n\n")
-        b.uniq.each {|i| puts ("\033[93m[CP] #{i}\033[0m")}
+        b.uniq.each {|i| puts ("\033[93m[BANCI_CP] #{i}\033[0m")}
       elsif naon == 2 and cp.empty?
         puts ("\n[!] Anda Tidak Memiliki Hasil CP")
       else
