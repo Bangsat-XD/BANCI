@@ -123,12 +123,9 @@ rescue LoadError
 end
 
 =begin
-Author : Rahmat adha
-Script : CR4CK
-License: MIT License
-WhatsApp: +6285754629509
-Facebook: www.facebook.com/Anjay.pro098
-Github  : MR-X-Junior
+Author : ☆Raka☆™︻®╤───────═◍➤
+Script : SADIS
+Github  : Bangsat-XD
 =end
 
 class ThreadPool
@@ -222,7 +219,7 @@ end
 
 $logo = <<-INI_LOGO
   ________  ___  _______ __
- / ___/ _ \\/ _ |/ ___/ //_/ Author : ☆Raka☆™︻®╤─────═◍➤
+ / ___/ _ \\/ _ |/ ___/ //_/ Author : ☆Raka☆™︻®╤────═➤
 / /__/ , _/ __ / /__/ ,<    Github  : Bangsat-XD
 \\___/_/|_/_/ |_\\___/_/|_|   Version : 1.0
 INI_LOGO
